@@ -1,6 +1,7 @@
 package cloudclient.hendler;
 
-import cloudclient.executingcommands.CallBack;
+import cloudclient.front.Controller;
+import cloudclient.service.CallBackService;
 import cloudclient.network.pipelineclip.InitPipeline;
 import cloudclient.network.pipelineclip.CommandPipeline;
 import domain.commands.Command;
@@ -20,15 +21,15 @@ public class ClientFilesWriteHandler extends ChannelInboundHandlerAdapter  {
   Command command;
   InitPipeline commandPipeline = new CommandPipeline();
   ChannelPipeline p;
-  CallBack onCommandReceivedCallback;
+  CallBackService onCommandReceivedCallback;
 
-
-  public ClientFilesWriteHandler(String argument, SocketChannel channel, Command command, CallBack callBack) {
+//  Controller.dirPath + command.commandArguments[0]
+  public ClientFilesWriteHandler(String argument, SocketChannel channel, Command command, CallBackService callBackService) {
     this.arg = argument;
     this.command = command;
     this.channel = channel;
     ChannelPipeline p = channel.pipeline();
-    this.onCommandReceivedCallback = callBack;
+    this.onCommandReceivedCallback = callBackService;
   }
   @Override
   public void channelRead(ChannelHandlerContext ctx, Object partsFile) throws Exception {
@@ -48,12 +49,12 @@ public class ClientFilesWriteHandler extends ChannelInboundHandlerAdapter  {
     onCommandReceivedCallback.callBack(new Command(
         ComName.BEGIN_FILE_SAVE,
        new String[]{String.valueOf(size1),String.valueOf(size2)}));
-
+    /**Очищаем буфер*/
+    byteBuf.release();
     System.out.println("Принимаю файл>"+command.commandArguments[0]
         +" " + size1
         + "->" + size2+" bytes /");
-    /**Очищаем буфер*/
-     byteBuf.release();
+
     /** Если size2 = size1 то передача файла закончена
      можно менять pipeline на прием команд и останавливать
      прогрессбар*/

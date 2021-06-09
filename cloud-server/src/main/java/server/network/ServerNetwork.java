@@ -1,6 +1,5 @@
 package server.network;
 
-import domain.commands.Command;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -14,7 +13,6 @@ import server.util.SrvProperties;
 
 public class ServerNetwork {
   private SocketChannel channel;
-  private SocketChannel fileChannel;
   SrvProperties prop = new SrvProperties();
   public ServerNetwork() {
 

@@ -1,9 +1,9 @@
-package cloudclient.interfase;
+package cloudclient.front;
 
 import cloudclient.fileview.client.FileInfoLocal;
 import cloudclient.fileview.server.FileInfo;
 import cloudclient.fileview.server.FileToSend;
-import cloudclient.network.Network;
+import cloudclient.service.impl.ClientNetworkServiceImp;
 import cloudclient.util.ClientProperties;
 import domain.commands.Command;
 import domain.commands.ComName;
@@ -21,14 +21,12 @@ import java.util.ResourceBundle;
 
 
 public class Controller implements Initializable {
-//  RealFileSize realFileSize = new RealFileSize();
   public static String dirPath;
   FileToSend fs = new FileToSend();
-  Network network;
+  ClientNetworkServiceImp clientNetworkServiceImp;
   ClientProperties prop = new ClientProperties();
   MouseAction mouseAction;
   InitTables initTables;
-
 
   @FXML
   public Label waitProgress;
@@ -39,23 +37,19 @@ public class Controller implements Initializable {
   public Button getFromServer;
   public Button delLocalFile;
   public Button upButton;
-  @FXML
   public TextField pathField;
   @FXML
   private Button buttonConnect;
   @FXML
   private Button buttonExit;
-
-  @FXML
   public TableView<FileInfoLocal> filesClientTable;
-  @FXML
   public TableView<FileInfo> filesServerTable;
   @FXML
   protected TextField info;
-  @FXML
   public ComboBox<String> disksBox;
 
   public void initialize(URL location, ResourceBundle resources) {
+
     final String MAIN_DIR = prop.value("MAIN_DIR");
     //Создаем структуру таблиц главного окна
     initTables = new InitTables(this);
@@ -67,7 +61,6 @@ public class Controller implements Initializable {
     buttonConnect.setStyle("-fx-background-color: #ff0000; ");
     sendToServer.setDisable(true);
     getFromServer.setDisable(true);
-
     mouseAction = new MouseAction(this);
     mouseAction.ClientTableMouseAction();
     mouseAction.ServerTableMouseAction();
@@ -121,7 +114,7 @@ public class Controller implements Initializable {
 
     /***/
     try {
-      network.sendCommandToServer(new Command(ComName.TAKE_FILE_FROM_SERVER,
+      clientNetworkServiceImp.sendCommandToServer(new Command(ComName.TAKE_FILE_FROM_SERVER,
           new String[]{info.getText(), String.valueOf(Files.size(Paths.get(info.getText()))), ""},
 //          new String[]{info.getText(), realFileSize.realSize(info.getText()), ""},
           null));
@@ -137,13 +130,14 @@ public class Controller implements Initializable {
   public void connectToServer(ActionEvent actionEvent) {
     buttonConnect.setStyle("-fx-background-color: gray");
     buttonConnect.setText("please wait");
-    network = new Network((obj) -> {
+
+       clientNetworkServiceImp = new ClientNetworkServiceImp((obj) -> {
       runCommandInInterface(obj);
     });
   }
 
   private void getTreeFromServer() {
-    network.sendCommandToServer(new Command(ComName.GIVE_TREE, null, null));
+    clientNetworkServiceImp.sendCommandToServer(new Command(ComName.GIVE_TREE, null, null));
   }
 
   private void setConnectOk() {
@@ -155,8 +149,8 @@ public class Controller implements Initializable {
   @FXML
   public void exitAndClose(ActionEvent actionEvent) {
 
-    if (network != null && network.channel.isOpen()) {
-      network.channel.close();
+    if (clientNetworkServiceImp != null && clientNetworkServiceImp.channel.isOpen()) {
+      clientNetworkServiceImp.channel.close();
     }
     Platform.exit();
   }
@@ -227,7 +221,7 @@ public class Controller implements Initializable {
   @FXML
   public void getFilesFromServer(ActionEvent actionEvent) {
     if (!info.getText().isEmpty()) {
-      network.sendCommandToServer(new Command(
+      clientNetworkServiceImp.sendCommandToServer(new Command(
           ComName.GIVE_MI_FILE,
           new String[]{info.getText(), mouseAction.getSize()},
           null));
@@ -278,7 +272,7 @@ public class Controller implements Initializable {
   }
 
       public void removeFileFromServer (ActionEvent actionEvent) {
-    network.sendCommandToServer(new Command(ComName.DELETE_FILE,
+    clientNetworkServiceImp.sendCommandToServer(new Command(ComName.DELETE_FILE,
         new String[]{info.getText(), mouseAction.getSize()}
         ));
       }

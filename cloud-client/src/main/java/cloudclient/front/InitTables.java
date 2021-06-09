@@ -1,4 +1,4 @@
-package cloudclient.interfase;
+package cloudclient.front;
 
 import cloudclient.fileview.client.FileInfoLocal;
 import cloudclient.fileview.server.FileInfo;

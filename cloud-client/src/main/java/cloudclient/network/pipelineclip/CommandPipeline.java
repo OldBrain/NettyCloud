@@ -1,6 +1,6 @@
 package cloudclient.network.pipelineclip;
 
-import cloudclient.executingcommands.CallBack;
+import cloudclient.service.CallBackService;
 import cloudclient.hendler.ClientObjectHandler;
 import domain.commands.Command;
 import io.netty.channel.ChannelPipeline;
@@ -11,7 +11,7 @@ import io.netty.handler.codec.serialization.ObjectEncoder;
 
 public class CommandPipeline implements InitPipeline {
   @Override
-  public ChannelPipeline reloadClip(SocketChannel channel, Command command, CallBack onCommandReceivedCallback) {
+  public ChannelPipeline reloadClip(SocketChannel channel, Command command, CallBackService onCommandReceivedCallback) {
     ChannelPipeline p = channel.pipeline();
     //* Удаляем хэндлеры для передачи файлов
     if (p.get("chunked")!=null) {

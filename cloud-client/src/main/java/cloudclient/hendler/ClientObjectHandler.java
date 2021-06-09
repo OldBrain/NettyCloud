@@ -1,8 +1,8 @@
 package cloudclient.hendler;
 
-import cloudclient.executingcommands.CallBack;
-import cloudclient.interfase.Controller;
-import cloudclient.network.Network;
+import cloudclient.service.CallBackService;
+import cloudclient.front.Controller;
+import cloudclient.service.impl.ClientNetworkServiceImp;
 import cloudclient.network.pipelineclip.CommandPipeline;
 import cloudclient.network.pipelineclip.InitPipeline;
 import cloudclient.network.pipelineclip.PipelineForInFiles;
@@ -19,12 +19,12 @@ import java.util.Arrays;
 
 public class ClientObjectHandler extends ChannelInboundHandlerAdapter {
 
-  CallBack onCommandReceivedCallback;
+  CallBackService onCommandReceivedCallback;
   private SocketChannel channel;
   private InitPipeline inFilesPipeline = new PipelineForInFiles();
   private InitPipeline commandPipeline = new CommandPipeline();
 
-  public ClientObjectHandler(CallBack onCommandReceivedCallback, SocketChannel channel) {
+  public ClientObjectHandler(CallBackService onCommandReceivedCallback, SocketChannel channel) {
     this.onCommandReceivedCallback = onCommandReceivedCallback;
     this.channel = channel;
   }
@@ -42,7 +42,7 @@ public class ClientObjectHandler extends ChannelInboundHandlerAdapter {
     Command command = (Command) msg;
 
     if (command.commandName == ComName.CONNECT_OK) {
-      Network.isConnect = true;
+      ClientNetworkServiceImp.isConnect = true;
       if (onCommandReceivedCallback != null) {
         onCommandReceivedCallback.callBack(command);
       }

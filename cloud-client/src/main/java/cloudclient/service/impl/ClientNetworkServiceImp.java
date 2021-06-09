@@ -1,6 +1,6 @@
-package cloudclient.network;
+package cloudclient.service.impl;
 
-import cloudclient.executingcommands.CallBack;
+import cloudclient.service.CallBackService;
 import cloudclient.network.pipelineclip.InitPipeline;
 import cloudclient.network.pipelineclip.CommandPipeline;
 import cloudclient.network.pipelineclip.PipelineForOutFiles;
@@ -16,14 +16,15 @@ import io.netty.handler.stream.ChunkedFile;
 import java.io.File;
 import java.io.IOException;
 
-public class Network {
+public class ClientNetworkServiceImp {
   private ClientProperties prop = new ClientProperties();
   public static boolean isConnect = false;
   public SocketChannel channel;
-   CallBack onCommandReceivedCallback;
+   CallBackService onCommandReceivedCallback;
   InitPipeline commandPipeline = new CommandPipeline();
   InitPipeline outFilesPipeline = new PipelineForOutFiles();
-  public Network(CallBack onCommandReceivedCallback) {
+
+  public ClientNetworkServiceImp(CallBackService onCommandReceivedCallback) {
     this.onCommandReceivedCallback = onCommandReceivedCallback;
 
 new Thread(new Runnable() {

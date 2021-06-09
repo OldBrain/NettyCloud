@@ -10,17 +10,17 @@ public class StartServer {
   public static final String MAIN_DIR= prop.value("MAIN_DIR");
 
   public static void main(String[] args) {
-    final String jdbcUrj = "jdbc:postgresql://localhost:5435/cloud";
-    final String userName = "postgres";
-    final String password = "postgrespass";
+    final String jdbcUrl = prop.value("jdbcUrl");
+    final String userName = prop.value("userName");
+    final String password = prop.value("password");
 
-    Flyway flyway = Flyway.configure().dataSource(jdbcUrj, userName, password).load();
-//    flyway.migrate();
-
-
+    Flyway flyway = Flyway.configure().dataSource(jdbcUrl, userName, password).load();
+    flyway.migrate();
 
 
-    FileList fileList = new FileList(prop.value("MAIN_DIR"));
+
+
+//    FileList fileList = new FileList(prop.value("MAIN_DIR"));
     ServerNetwork serverNetwork = new ServerNetwork();
 
     }
