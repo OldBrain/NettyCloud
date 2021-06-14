@@ -1,6 +1,5 @@
 package cloudclient.hendler;
 
-import cloudclient.front.Controller;
 import cloudclient.service.CallBackService;
 import cloudclient.network.pipelineclip.InitPipeline;
 import cloudclient.network.pipelineclip.CommandPipeline;

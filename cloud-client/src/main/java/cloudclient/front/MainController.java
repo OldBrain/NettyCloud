@@ -10,18 +10,21 @@ import domain.commands.ComName;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+
 import java.io.*;
 import java.net.URL;
 import java.nio.file.*;
 import java.util.ResourceBundle;
 
 
-
-public class Controller implements Initializable {
+public class MainController implements Initializable {
   public static String dirPath;
+
   FileToSend fs = new FileToSend();
   ClientNetworkServiceImp clientNetworkServiceImp;
   ClientProperties prop = new ClientProperties();
@@ -47,10 +50,22 @@ public class Controller implements Initializable {
   @FXML
   protected TextField info;
   public ComboBox<String> disksBox;
+  AuthorizationController autController;
+  String login;
+  String password;
 
   public void initialize(URL location, ResourceBundle resources) {
+  /**Получаем данные из AuthorizationController*/
+    AuthorizationControllerExchange();
+    login = autController.getLogon();
+    password = autController.getPassword();
+    clientNetworkServiceImp  = new ClientNetworkServiceImp((obj) -> {
+      runCommandInInterface(obj);
+    });
 
     final String MAIN_DIR = prop.value("MAIN_DIR");
+
+
     //Создаем структуру таблиц главного окна
     initTables = new InitTables(this);
     initTables.initT();
@@ -64,14 +79,17 @@ public class Controller implements Initializable {
     mouseAction = new MouseAction(this);
     mouseAction.ClientTableMouseAction();
     mouseAction.ServerTableMouseAction();
-    dirPath = pathField.getText()+"\\";
+    dirPath = pathField.getText() + "\\";
 
     pathField.textProperty().addListener(((observable, oldValue, newValue) ->
 //        System.out.println("OldText " + oldValue + "  NewText " + newValue)
-        dirPath = newValue+"\\"
+        dirPath = newValue + "\\"
 
     ));
+
   }
+
+
 
   private void initComboBox() {
     disksBox.getItems().clear();
@@ -109,8 +127,6 @@ public class Controller implements Initializable {
     progressPanel.setDisable(true);
     msgPanel.setDisable(true);
     waitProgress.setVisible(true);
-//    progress.setProgress(0);
-//    progress.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
 
     /***/
     try {
@@ -131,20 +147,20 @@ public class Controller implements Initializable {
     buttonConnect.setStyle("-fx-background-color: gray");
     buttonConnect.setText("please wait");
 
-       clientNetworkServiceImp = new ClientNetworkServiceImp((obj) -> {
-      runCommandInInterface(obj);
-    });
+//    clientNetworkServiceImp = new ClientNetworkServiceImp((obj) -> {
+//      runCommandInInterface(obj);
+//    });
   }
 
   private void getTreeFromServer() {
     clientNetworkServiceImp.sendCommandToServer(new Command(ComName.GIVE_TREE, null, null));
   }
 
-  private void setConnectOk() {
-    buttonConnect.setText("Connect OK");
-    buttonConnect.setStyle("-fx-background-color: green");
-    buttonConnect.setDisable(true);
-  }
+//  private void setConnectOk() {
+//    buttonConnect.setText("Connect OK");
+//    buttonConnect.setStyle("-fx-background-color: green");
+//    buttonConnect.setDisable(true);
+//  }
 
   @FXML
   public void exitAndClose(ActionEvent actionEvent) {
@@ -228,7 +244,7 @@ public class Controller implements Initializable {
     }
   }
 
-  private void runCommandInInterface(Object obj) {
+  public void runCommandInInterface(Object obj) {
     if (obj instanceof Command) {
       Command command = (Command) obj;
       if (command.commandName == ComName.BEGIN_FILE_SAVE) {
@@ -255,10 +271,15 @@ public class Controller implements Initializable {
       }
 
       if (command.commandName == ComName.CONNECT_OK) {
-        setConnectOk();
+//        setConnectOk();
+        clientNetworkServiceImp.sendCommandToServer(new Command(ComName.LOGIN,
+            new String[]{login,password}));
+
+
+      }
+      if (command.commandName == ComName.LOGIN_OK) {
         getTreeFromServer();
       }
-
 
     }
     if (obj instanceof String) {
@@ -271,15 +292,24 @@ public class Controller implements Initializable {
 
   }
 
-      public void removeFileFromServer (ActionEvent actionEvent) {
+  public void removeFileFromServer(ActionEvent actionEvent) {
     clientNetworkServiceImp.sendCommandToServer(new Command(ComName.DELETE_FILE,
         new String[]{info.getText(), mouseAction.getSize()}
-        ));
-      }
+    ));
+  }
 
+  private void AuthorizationControllerExchange() {
+    FXMLLoader loader =new FXMLLoader(getClass().getResource("/view/authorization.fxml"));
+    try {
+      Parent root = (Parent) loader.load();
+      this.autController = loader.getController();
 
+//      Stage stage = new Stage();
+//      stage.setScene(new Scene(root));
+//      stage.show();
 
-
-
-
+    } catch (IOException ioException) {
+      ioException.printStackTrace();
+    }
+  }
 }

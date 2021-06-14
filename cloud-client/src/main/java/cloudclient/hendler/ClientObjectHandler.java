@@ -1,7 +1,7 @@
 package cloudclient.hendler;
 
 import cloudclient.service.CallBackService;
-import cloudclient.front.Controller;
+import cloudclient.front.MainController;
 import cloudclient.service.impl.ClientNetworkServiceImp;
 import cloudclient.network.pipelineclip.CommandPipeline;
 import cloudclient.network.pipelineclip.InitPipeline;
@@ -46,6 +46,7 @@ public class ClientObjectHandler extends ChannelInboundHandlerAdapter {
       if (onCommandReceivedCallback != null) {
         onCommandReceivedCallback.callBack(command);
       }
+
       printCommand(command);
     }
 
@@ -59,7 +60,7 @@ public class ClientObjectHandler extends ChannelInboundHandlerAdapter {
 
     if (command.commandName == ComName.TAKE_FILE_FROM_SERVER) {
 
-      File file = new File(Controller.dirPath + command.commandArguments[0]);
+      File file = new File(MainController.dirPath + command.commandArguments[0]);
       /**Надо вставить запрос на перезапись*/
       if (file.delete()) {
         System.out.println("Файл удален!!!");
@@ -87,6 +88,12 @@ public class ClientObjectHandler extends ChannelInboundHandlerAdapter {
       printCommand(command);
 
     }
+
+    if (command.commandName == ComName.LOGIN_OK) {
+     printCommand(command);
+        onCommandReceivedCallback.callBack(command);
+    }
+
 
   }
 

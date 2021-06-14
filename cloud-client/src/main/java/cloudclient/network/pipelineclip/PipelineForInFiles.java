@@ -2,7 +2,7 @@ package cloudclient.network.pipelineclip;
 
 import cloudclient.service.CallBackService;
 import cloudclient.hendler.ClientFilesWriteHandler;
-import cloudclient.front.Controller;
+import cloudclient.front.MainController;
 import domain.commands.Command;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -41,7 +41,7 @@ public class PipelineForInFiles implements InitPipeline{
       p.addLast("chunked",new ChunkedWriteHandler());
     }
     if (p.get("file_handler")==null) {
-      p.addLast("file_handler",new ClientFilesWriteHandler(Controller.dirPath+command.commandArguments[0],channel,command,onCommandReceivedCallback));
+      p.addLast("file_handler",new ClientFilesWriteHandler(MainController.dirPath+command.commandArguments[0],channel,command,onCommandReceivedCallback));
 
     }
 

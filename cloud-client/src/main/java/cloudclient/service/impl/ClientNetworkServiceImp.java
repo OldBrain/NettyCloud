@@ -110,7 +110,9 @@ new Thread(new Runnable() {
     if (command.commandName==ComName.DELETE_FILE) {
       channel.writeAndFlush(command);
     }
-
+    if (command.commandName == ComName.LOGIN) {
+      channel.writeAndFlush(command);
+    }
   }
 
 

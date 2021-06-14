@@ -8,10 +8,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class MouseAction {
-  Controller cnt;
+  MainController cnt;
   String size;
 
-  public MouseAction(Controller cnt) {
+  public MouseAction(MainController cnt) {
     this.cnt = cnt;
   }
 

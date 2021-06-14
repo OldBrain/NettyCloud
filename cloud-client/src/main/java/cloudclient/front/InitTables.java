@@ -20,10 +20,10 @@ import java.util.stream.Collectors;
 //
 
 public class InitTables {
-  private Controller cnt;
+  private MainController cnt;
 
-  public InitTables(Controller controller) {
-    this.cnt = controller;
+  public InitTables(MainController mainController) {
+    this.cnt = mainController;
 
 
   }

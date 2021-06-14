@@ -5,10 +5,10 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class ClientProperties {
+  String propValue=null;
+  Properties pr = new Properties();
 
   public String value(String propName) {
-    String propValue=null;
-    Properties pr = new Properties();
     InputStream inputStream = this.getClass().
         getResourceAsStream("/config.properties");
     try {
@@ -19,4 +19,6 @@ public class ClientProperties {
     }
     return propValue;
   }
+
+
 }

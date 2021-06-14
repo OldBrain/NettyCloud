@@ -76,8 +76,12 @@ public class ServerObjectHandler extends ChannelInboundHandlerAdapter {
         printCommand(command);
         sendToClient.deleteFile(command,channel);
         break;
+      case LOGIN:
+        sendToClient.loginOK(channel);
+        printCommand(command);
+        break;
 
-      default:
+        default:
         break;
     }
 

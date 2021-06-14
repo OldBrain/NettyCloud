@@ -87,4 +87,8 @@ public class SendCommandsToClient {
           command.commandArguments));
     }
   }
+
+  public void loginOK(SocketChannel channel) {
+    channel.writeAndFlush(new Command(ComName.LOGIN_OK));
+  }
 }
