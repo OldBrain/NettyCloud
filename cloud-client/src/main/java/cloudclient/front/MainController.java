@@ -1,10 +1,9 @@
 package cloudclient.front;
 
-import cloudclient.fileview.client.FileInfoLocal;
-import cloudclient.fileview.server.FileInfo;
-import cloudclient.fileview.server.FileToSend;
+import cloudclient.informationaboutfiles.ClientsFiles;
+import cloudclient.informationaboutfiles.ServerFiles;
 import cloudclient.service.impl.ClientNetworkServiceImp;
-import cloudclient.util.ClientProperties;
+import cloudclient.util.ClientPropertiesUtils;
 import domain.commands.Command;
 import domain.commands.ComName;
 import javafx.application.Platform;
@@ -25,9 +24,8 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
   public static String dirPath;
 
-  FileToSend fs = new FileToSend();
   ClientNetworkServiceImp clientNetworkServiceImp;
-  ClientProperties prop = new ClientProperties();
+  ClientPropertiesUtils prop = new ClientPropertiesUtils();
   MouseAction mouseAction;
   InitTables initTables;
 
@@ -45,8 +43,8 @@ public class MainController implements Initializable {
   private Button buttonConnect;
   @FXML
   private Button buttonExit;
-  public TableView<FileInfoLocal> filesClientTable;
-  public TableView<FileInfo> filesServerTable;
+  public TableView<ClientsFiles> filesClientTable;
+  public TableView<ServerFiles> filesServerTable;
   @FXML
   protected TextField info;
   public ComboBox<String> disksBox;
@@ -132,7 +130,6 @@ public class MainController implements Initializable {
     try {
       clientNetworkServiceImp.sendCommandToServer(new Command(ComName.TAKE_FILE_FROM_SERVER,
           new String[]{info.getText(), String.valueOf(Files.size(Paths.get(info.getText()))), ""},
-//          new String[]{info.getText(), realFileSize.realSize(info.getText()), ""},
           null));
     } catch (Exception ioException) {
       ioException.printStackTrace();
@@ -156,12 +153,6 @@ public class MainController implements Initializable {
     clientNetworkServiceImp.sendCommandToServer(new Command(ComName.GIVE_TREE, null, null));
   }
 
-//  private void setConnectOk() {
-//    buttonConnect.setText("Connect OK");
-//    buttonConnect.setStyle("-fx-background-color: green");
-//    buttonConnect.setDisable(true);
-//  }
-
   @FXML
   public void exitAndClose(ActionEvent actionEvent) {
 
@@ -182,7 +173,7 @@ public class MainController implements Initializable {
       String date = command.commandFileInfo.get(i)[2];
       String fullPath = command.commandFileInfo.get(i)[3];
       String item = name + " " + size + " " + date + " " + fullPath;
-      FileInfo fileInfo = new FileInfo(name, size, date, fullPath);
+      ServerFiles fileInfo = new ServerFiles(name, size, date, fullPath);
       filesServerTable.getItems().add(fileInfo);
 
     }

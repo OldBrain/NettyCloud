@@ -1,7 +1,7 @@
 package cloudclient.front;
 
-import cloudclient.fileview.client.FileInfoLocal;
-import cloudclient.fileview.server.FileInfo;
+import cloudclient.informationaboutfiles.ClientsFiles;
+import cloudclient.informationaboutfiles.ServerFiles;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Alert;
@@ -39,7 +39,7 @@ public class InitTables {
       cnt.pathField.setText(path.normalize().toAbsolutePath().toString());
 
       cnt.filesClientTable.getItems().clear();
-      cnt.filesClientTable.getItems().addAll(Files.list(path).map(FileInfoLocal::new).collect(Collectors.toList()));
+      cnt.filesClientTable.getItems().addAll(Files.list(path).map(ClientsFiles::new).collect(Collectors.toList()));
       cnt.filesClientTable.sort();
 
     } catch (IOException e) {
@@ -52,19 +52,19 @@ public class InitTables {
   }
 
   private void initServerTableView() {
-    TableColumn<FileInfo, String> fileNameColumn = new TableColumn<>("Имя файла");
+    TableColumn<ServerFiles, String> fileNameColumn = new TableColumn<>("Имя файла");
     fileNameColumn.setCellValueFactory(param ->
         new SimpleStringProperty(param.getValue().getName()));
     fileNameColumn.setPrefWidth(150);
 //    cnt.filesServerTable.getColumns().add(fileNameColumn);
 
-    TableColumn<FileInfo, String> fileSizeColumn = new TableColumn<>("Размер");
+    TableColumn<ServerFiles, String> fileSizeColumn = new TableColumn<>("Размер");
     fileSizeColumn.setCellValueFactory(param ->
         new SimpleStringProperty(param.getValue().getSize()));
     fileSizeColumn.setPrefWidth(100);
 //    cnt.filesServerTable.getColumns().add(fileSizeColumn);
 
-    TableColumn<FileInfo, String> fileDateColumn = new TableColumn<>("Дата");
+    TableColumn<ServerFiles, String> fileDateColumn = new TableColumn<>("Дата");
     fileDateColumn.setCellValueFactory(param ->
         new SimpleStringProperty(param.getValue().getData()));
     fileDateColumn.setPrefWidth(80);
@@ -74,22 +74,22 @@ public class InitTables {
   }
 
   private void initLocalTableView() {
-    TableColumn<FileInfoLocal, String> fileTypeColumn = new TableColumn<>("T");
+    TableColumn<ClientsFiles, String> fileTypeColumn = new TableColumn<>("T");
     fileTypeColumn.setCellValueFactory(param ->
         new SimpleStringProperty(param.getValue().getType().getName()));
     fileTypeColumn.setPrefWidth(15);
 
-    TableColumn<FileInfoLocal, String> fileNameColumn = new TableColumn<>("Имя");
+    TableColumn<ClientsFiles, String> fileNameColumn = new TableColumn<>("Имя");
     fileNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getFileName()));
     fileNameColumn.setPrefWidth(185);
 
-    TableColumn<FileInfoLocal, Long> fileSizeColumn = new TableColumn<>("размер");
+    TableColumn<ClientsFiles, Long> fileSizeColumn = new TableColumn<>("размер");
     fileSizeColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(
         param.getValue().getSize()
     ));
     fileSizeColumn.setPrefWidth(110);
     fileSizeColumn.setCellFactory(column -> {
-      return new TableCell<FileInfoLocal, Long>() {
+      return new TableCell<ClientsFiles, Long>() {
         @Override
         protected void updateItem(Long item, boolean empty) {
           if (item == null || empty) {
@@ -109,7 +109,7 @@ public class InitTables {
 
 
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd | HH:mm:ss");
-    TableColumn<FileInfoLocal, String> fileDateColumn = new TableColumn<>("дата");
+    TableColumn<ClientsFiles, String> fileDateColumn = new TableColumn<>("дата");
     fileDateColumn.setCellValueFactory(param -> new SimpleStringProperty(
         param.getValue().getLastModify().format(dtf)));
     fileDateColumn.setPrefWidth(130);

@@ -9,11 +9,11 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import server.network.pipelineclip.CommandPipeline;
-import server.util.SrvProperties;
+import server.util.SrvPropertiesUtils;
 
 public class ServerNetwork {
   private SocketChannel channel;
-  SrvProperties prop = new SrvProperties();
+  SrvPropertiesUtils prop = new SrvPropertiesUtils();
   public ServerNetwork() {
 
     EventLoopGroup authorizationGroup = new NioEventLoopGroup();

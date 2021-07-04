@@ -17,7 +17,7 @@
       <TextField fx:id="logonField" VBox.vgrow="ALWAYS"/>
       <Text  VBox.vgrow="ALWAYS" text="password:"/>
       <TextField fx:id="passwordFields" VBox.vgrow="ALWAYS"/>
-      <Button fx:id="connectButton" disable="true"  text="Connect" VBox.vgrow="ALWAYS" onAction="#connectPressed"/>
+      <Button fx:id="connectButton" disable="true"  text="Connect" VBox.vgrow="ALWAYS" onAction="#connectionButtonIsPressed"/>
       <Button fx:id="exitButton"   text="Exit" VBox.vgrow="ALWAYS" onAction="#exit"/>
 
    </VBox>

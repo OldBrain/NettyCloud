@@ -2,7 +2,7 @@ package server.executingcommands;
 
 import domain.commands.ComName;
 import domain.commands.Command;
-import domain.fileservise.FileList;
+import server.FileList;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelPipeline;

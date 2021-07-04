@@ -1,12 +1,11 @@
 package server;
 
-import domain.fileservise.FileList;
 import org.flywaydb.core.Flyway;
 import server.network.ServerNetwork;
-import server.util.SrvProperties;
+import server.util.SrvPropertiesUtils;
 
 public class StartServer {
-  static SrvProperties prop = new SrvProperties();
+  static SrvPropertiesUtils prop = new SrvPropertiesUtils();
   public static final String MAIN_DIR= prop.value("MAIN_DIR");
 
   public static void main(String[] args) {

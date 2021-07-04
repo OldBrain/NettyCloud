@@ -1,4 +1,4 @@
-package server.hendler;
+package server.handler;
 
 import domain.commands.Command;
 import domain.commands.ComName;
@@ -10,7 +10,7 @@ import server.executingcommands.SendCommandsToClient;
 import server.network.pipelineclip.InitPipeline;
 import server.network.pipelineclip.CommandPipeline;
 import server.network.pipelineclip.PipelineForInFiles;
-import server.util.SrvProperties;
+import server.util.SrvPropertiesUtils;
 
 import java.io.File;
 import java.util.Arrays;
@@ -42,7 +42,7 @@ public class ServerObjectHandler extends ChannelInboundHandlerAdapter {
   @Override
   public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
     super.channelRead(ctx, msg);
-    SrvProperties prop = new SrvProperties();
+    SrvPropertiesUtils prop = new SrvPropertiesUtils();
 
     ChannelPipeline p = ctx.pipeline();
     Command command = (Command) msg;

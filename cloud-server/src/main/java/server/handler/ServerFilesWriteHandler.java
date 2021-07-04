@@ -1,4 +1,4 @@
-package server.hendler;
+package server.handler;
 
 import domain.commands.Command;
 import io.netty.buffer.ByteBuf;

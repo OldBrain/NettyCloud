@@ -1,4 +1,4 @@
-package cloudclient.hendler;
+package cloudclient.handler;
 
 import cloudclient.service.CallBackService;
 import cloudclient.network.pipelineclip.InitPipeline;
@@ -22,7 +22,6 @@ public class ClientFilesWriteHandler extends ChannelInboundHandlerAdapter  {
   ChannelPipeline p;
   CallBackService onCommandReceivedCallback;
 
-//  Controller.dirPath + command.commandArguments[0]
   public ClientFilesWriteHandler(String argument, SocketChannel channel, Command command, CallBackService callBackService) {
     this.arg = argument;
     this.command = command;

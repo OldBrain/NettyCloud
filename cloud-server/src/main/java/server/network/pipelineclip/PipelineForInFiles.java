@@ -4,12 +4,12 @@ import domain.commands.Command;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.stream.ChunkedWriteHandler;
-import server.hendler.ServerFilesWriteHandler;
-import server.util.SrvProperties;
+import server.handler.ServerFilesWriteHandler;
+import server.util.SrvPropertiesUtils;
 
 
 public class PipelineForInFiles implements InitPipeline{
-  SrvProperties prop = new SrvProperties();
+  SrvPropertiesUtils prop = new SrvPropertiesUtils();
   @Override
   public ChannelPipeline reloadClip(SocketChannel channel, Command command) {
     ChannelPipeline p = channel.pipeline();

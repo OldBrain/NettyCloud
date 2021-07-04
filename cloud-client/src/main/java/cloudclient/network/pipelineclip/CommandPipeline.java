@@ -1,7 +1,7 @@
 package cloudclient.network.pipelineclip;
 
 import cloudclient.service.CallBackService;
-import cloudclient.hendler.ClientObjectHandler;
+import cloudclient.handler.ClientObjectHandler;
 import domain.commands.Command;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;

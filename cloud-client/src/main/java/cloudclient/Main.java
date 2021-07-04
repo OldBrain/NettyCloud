@@ -7,25 +7,19 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    Stage authorisationStage;
-    Stage mainStage;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/view/authorization.fxml"));
         Scene scene = new Scene(root,820,420);
         primaryStage.setScene(scene);
-
         primaryStage.setTitle("CloudOn");
         primaryStage.setScene(scene);
         primaryStage.show();
 
     }
 
-
     public static void main(String[] args) {
-
         launch(args);
-
     }
 }

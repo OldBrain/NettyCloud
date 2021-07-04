@@ -4,7 +4,7 @@ import cloudclient.service.CallBackService;
 import cloudclient.network.pipelineclip.InitPipeline;
 import cloudclient.network.pipelineclip.CommandPipeline;
 import cloudclient.network.pipelineclip.PipelineForOutFiles;
-import cloudclient.util.ClientProperties;
+import cloudclient.util.ClientPropertiesUtils;
 import domain.commands.Command;
 import domain.commands.ComName;
 import io.netty.bootstrap.Bootstrap;
@@ -17,7 +17,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class ClientNetworkServiceImp {
-  private ClientProperties prop = new ClientProperties();
+  private ClientPropertiesUtils prop = new ClientPropertiesUtils();
   public static boolean isConnect = false;
   public SocketChannel channel;
    CallBackService onCommandReceivedCallback;

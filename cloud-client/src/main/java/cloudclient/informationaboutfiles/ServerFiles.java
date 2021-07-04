@@ -1,12 +1,12 @@
-package cloudclient.fileview.server;
+package cloudclient.informationaboutfiles;
 
-public class FileInfo {
+public class ServerFiles {
   private String name;
   private String size;
   private String data;
   private String fullPath;
 
-  public FileInfo(String name, String size, String data,String fullPath) {
+  public ServerFiles(String name, String size, String data, String fullPath) {
     this.name = name;
     this.size = size;
     this.data = data;

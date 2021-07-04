@@ -1,4 +1,4 @@
-package cloudclient.hendler;
+package cloudclient.handler;
 
 import cloudclient.service.CallBackService;
 import cloudclient.front.MainController;

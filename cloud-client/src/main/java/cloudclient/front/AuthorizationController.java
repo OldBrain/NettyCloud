@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -23,15 +22,12 @@ public class AuthorizationController implements Initializable {
   public TextField passwordFields;
   public Button connectButton;
 
-
-
   ClientNetworkServiceImp clientNetworkServiceImp;
 
   public void initialize(URL location, ResourceBundle resources) {
     connectButton.setDisable(false);
     logonField.setText("testlogin");
     passwordFields.setText("password");
-
   }
 
   public String getLogon() {
@@ -42,28 +38,29 @@ public class AuthorizationController implements Initializable {
     return passwordFields.getText();
   }
 
+  public void connectionButtonIsPressed(ActionEvent actionEvent) {
+    openMainWindow();
+    closeCurrentWindow();
+  }
 
-  public void connectPressed(ActionEvent actionEvent){
-    /**Открываем главное окно*/
+  private void closeCurrentWindow() {
+    Stage stage = (Stage) connectButton.getScene().getWindow();
+    stage.close();
+  }
+
+  private void openMainWindow() {
     try {
-      MainStage mainStage=new MainStage(this);
+      MainStage mainStage = new MainStage(this);
       mainStage.showWindow();
     } catch (Exception e) {
       e.printStackTrace();
     }
-    /**Закрываем текущее окно*/
-    Stage stage = (Stage) connectButton.getScene().getWindow();
-    stage.close();
-
   }
 
   public void exit(ActionEvent actionEvent) {
-
     if (clientNetworkServiceImp != null && clientNetworkServiceImp.channel.isOpen()) {
       clientNetworkServiceImp.channel.close();
     }
     Platform.exit();
   }
-
-
 }
