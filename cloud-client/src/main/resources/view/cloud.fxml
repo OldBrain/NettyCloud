@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="msgPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cloudclient.front.controlers.MainController">
+   <children>
+      <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5">
+         <children>
+            <Button fx:id="delLocalFile" maxWidth="-Infinity" onAction="#deleteLocalFile" text="Удалить файл  локально" HBox.hgrow="ALWAYS" />
+            <Button fx:id="delFileFromServer" maxWidth="-Infinity" onAction="#removeFileFromServer" text="Удалить файл с сервера" HBox.hgrow="ALWAYS" />
+            <Button fx:id="buttonExit" maxWidth="-Infinity" onAction="#exitAndClose" text="Exit" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <Button fx:id="sendToServer" layoutX="61.0" layoutY="35.0" mnemonicParsing="false" onAction="#sendFilesToServer" prefHeight="25.0" prefWidth="386.0" text=" send to server ============&gt;&gt;" textAlignment="JUSTIFY" textFill="#111111" textOverrun="CLIP" underline="true">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <effect>
+            <Blend mode="SRC_ATOP" opacity="0.35" />
+         </effect></Button>
+      <TextField fx:id="info" editable="false" layoutX="2.0" layoutY="386.0" prefHeight="25.0" prefWidth="780.0" promptText="Info">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></TextField>
+      <Button fx:id="upButton" layoutX="386.0" layoutY="60.0" mnemonicParsing="false" onAction="#upDir" prefHeight="25.0" prefWidth="60.0" text="вверх" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <TableView fx:id="filesServerTable" layoutX="448.0" layoutY="60.0" prefHeight="325.0" prefWidth="336.0">
+      </TableView>
+
+      <TableView fx:id="filesClientTable" layoutY="87.0" prefHeight="295.0" prefWidth="446.0">
+      </TableView>
+      <Button fx:id="getFromServer" layoutX="449.0" layoutY="35.0" mnemonicParsing="false" onAction="#getFilesFromServer" prefHeight="25.0" prefWidth="336.0" text="&lt;=============== get from the server" textAlignment="JUSTIFY">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <ComboBox fx:id="disksBox" layoutX="-3.0" layoutY="35.0" onAction="#selectDisk" prefHeight="25.0" prefWidth="60.0" />
+      <TextField fx:id="pathField" layoutY="60.0" prefHeight="25.0" prefWidth="386.0" />
+      <AnchorPane fx:id="progressPanel" disable="true" layoutY="134.0" prefHeight="133.0" prefWidth="780.0" visible="false">
+         <children>
+            <ProgressBar fx:id="progress" layoutY="70.0" prefHeight="49.0" prefWidth="780.0" style="-fx-background-color: #0089BA;" visible="false" />
+            <Label fx:id="waitProgress" prefHeight="61.0" prefWidth="780.0" text="Пожалуйса подождите. Идет передача файла." textAlignment="JUSTIFY" visible="false">
+               <font>
+                  <Font name="System Bold Italic" size="33.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+   </children>
+</AnchorPane>

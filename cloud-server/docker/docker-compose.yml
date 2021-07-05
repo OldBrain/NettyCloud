@@ -1,0 +1,21 @@
+version: '3.2'
+
+volumes:
+  cloud-postgres:
+    driver: local
+
+services:
+  postgres:
+    image: library/postgres:latest
+    container_name: cloud-postgres
+    volumes:
+      - type: volume
+        source: cloud-postgres
+        target: /var/lib/postgresql/dataConfig
+    environment:
+      POSTGRES_DB: cloud
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespass
+    ports:
+      - 5434:5432
+
