@@ -9,7 +9,7 @@ import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 
-public class CommandPipeline implements InitPipeline {
+public class CommandPipeline implements InitializedPipeline {
   @Override
   public ChannelPipeline reloadClip(SocketChannel channel, Command command, CallBackService onCommandReceivedCallback) {
     ChannelPipeline p = channel.pipeline();

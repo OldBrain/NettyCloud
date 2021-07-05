@@ -7,7 +7,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.stream.ChunkedWriteHandler;
 
 
-public class PipelineForOutFiles implements InitPipeline{
+public class PipelineForOutFiles implements InitializedPipeline {
 
 //  String dataDir = "clientdata";
 //  String dataDir = Controller.dirPath;

@@ -5,14 +5,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="msgPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cloudclient.front.MainController">
+<AnchorPane fx:id="msgPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cloudclient.front.controlers.MainController">
    <children>
       <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5">
          <children>
             <Button fx:id="delLocalFile" maxWidth="-Infinity" onAction="#deleteLocalFile" text="Удалить файл  локально" HBox.hgrow="ALWAYS" />
             <Button fx:id="delFileFromServer" maxWidth="-Infinity" onAction="#removeFileFromServer" text="Удалить файл с сервера" HBox.hgrow="ALWAYS" />
             <Button fx:id="buttonExit" maxWidth="-Infinity" onAction="#exitAndClose" text="Exit" HBox.hgrow="ALWAYS" />
-            <Button fx:id="buttonConnect" maxWidth="-Infinity" onAction="#connectToServer" text="Connect" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
       <Button fx:id="sendToServer" layoutX="61.0" layoutY="35.0" mnemonicParsing="false" onAction="#sendFilesToServer" prefHeight="25.0" prefWidth="386.0" text=" send to server ============&gt;&gt;" textAlignment="JUSTIFY" textFill="#111111" textOverrun="CLIP" underline="true">

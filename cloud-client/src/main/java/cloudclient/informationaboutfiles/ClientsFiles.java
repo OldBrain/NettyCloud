@@ -6,9 +6,10 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
-/** Этот класс создан для инициализации TableView,
+/**
+ * Этот класс создан для инициализации TableView,
  * отображающей файлы расположенные на локальном диске клиента
- * */
+ */
 public class ClientsFiles {
   public enum FileType {
     FILE("F"), DIRECTORY("D");

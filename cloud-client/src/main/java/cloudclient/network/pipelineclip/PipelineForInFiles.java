@@ -2,14 +2,14 @@ package cloudclient.network.pipelineclip;
 
 import cloudclient.service.CallBackService;
 import cloudclient.handler.ClientFilesWriteHandler;
-import cloudclient.front.MainController;
+import cloudclient.front.controlers.MainController;
 import domain.commands.Command;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.stream.ChunkedWriteHandler;
 
 
-public class PipelineForInFiles implements InitPipeline{
+public class PipelineForInFiles implements InitializedPipeline {
 
 //  String dataDir = "clientdata";
 //  String dataDir = Controller.dirPath;

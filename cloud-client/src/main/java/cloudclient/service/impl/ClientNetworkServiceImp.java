@@ -1,7 +1,7 @@
 package cloudclient.service.impl;
 
 import cloudclient.service.CallBackService;
-import cloudclient.network.pipelineclip.InitPipeline;
+import cloudclient.network.pipelineclip.InitializedPipeline;
 import cloudclient.network.pipelineclip.CommandPipeline;
 import cloudclient.network.pipelineclip.PipelineForOutFiles;
 import cloudclient.util.ClientPropertiesUtils;
@@ -21,8 +21,8 @@ public class ClientNetworkServiceImp {
   public static boolean isConnect = false;
   public SocketChannel channel;
    CallBackService onCommandReceivedCallback;
-  InitPipeline commandPipeline = new CommandPipeline();
-  InitPipeline outFilesPipeline = new PipelineForOutFiles();
+  InitializedPipeline commandPipeline = new CommandPipeline();
+  InitializedPipeline outFilesPipeline = new PipelineForOutFiles();
 
   public ClientNetworkServiceImp(CallBackService onCommandReceivedCallback) {
     this.onCommandReceivedCallback = onCommandReceivedCallback;

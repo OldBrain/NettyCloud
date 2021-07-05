@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.text.Text?>
-<HBox focusTraversable="true" prefWidth="Infinity" prefHeight="Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cloudclient.front.AuthorizationController">
+<HBox focusTraversable="true" prefWidth="Infinity" prefHeight="Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cloudclient.front.controlers.AuthorizationController">
 
    <ImageView disable="true" HBox.hgrow="ALWAYS"  pickOnBounds="true">
       <Image fx:id="img"   url="@../cloud.png" />
