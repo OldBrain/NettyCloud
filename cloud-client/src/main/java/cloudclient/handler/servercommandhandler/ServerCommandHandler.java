@@ -42,7 +42,6 @@ public class ServerCommandHandler {
       printCommand(command);
       pipeline = inFilesPipeline.reloadClip(channel, command, onCommandReceivedCallback);
     }
-
     if (command.commandName == ComName.SERVER_FILE_ACCEPTED) {
 /**Останавливаем ProgressBar*/
       onCommandReceivedCallback.callBack(new Command(

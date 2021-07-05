@@ -29,7 +29,7 @@ public class ClientObjectHandler extends ChannelInboundHandlerAdapter {
   public ClientObjectHandler(CallBackService onCommandReceivedCallback, SocketChannel channel) {
     this.onCommandReceivedCallback = onCommandReceivedCallback;
     this.channel = channel;
-    serverCommandHandler = new ServerCommandHandler(onCommandReceivedCallback,channel);
+    serverCommandHandler = new ServerCommandHandler(onCommandReceivedCallback, channel);
   }
 
   @Override
@@ -43,21 +43,16 @@ public class ClientObjectHandler extends ChannelInboundHandlerAdapter {
     ChannelPipeline pipeline = ctx.pipeline();
     Command command = (Command) msg;
 
-
-
     if (command.commandName == ComName.CONNECT_OK) {
       ClientNetworkServiceImp.isConnect = true;
       serverCommandHandler.printCommand(command);
       if (onCommandReceivedCallback != null) {
         onCommandReceivedCallback.callBack(command);
-        }
+      }
     }
 
-    serverCommandHandler.commandHandler(pipeline,command);
-
-
+    serverCommandHandler.commandHandler(pipeline, command);
   }
-
 
 }
 
