@@ -1,6 +1,6 @@
 package domain.commands;
 
-public enum ComName {
+public enum CommandName {
   GIVE_TREE,
   GIVE_MI_FILE,
   TAKE_FILE_FROM_SERVER,

@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Command implements Serializable {
-  public ComName commandName;
+  public CommandName commandName;
   public String[] commandArguments;
   public List<String[]> commandFileInfo;
 
-  public Command(ComName commandName,
+  public Command(CommandName commandName,
                  String[] commandArguments,
                  List<String[]> commandFileInfo)
   {
@@ -17,13 +17,13 @@ public class Command implements Serializable {
     this.commandFileInfo = commandFileInfo;
   }
 
-  public Command(ComName commandName) {
+  public Command(CommandName commandName) {
     this.commandName = commandName;
     this.commandArguments = null;
     this.commandFileInfo = null;
   }
 
-  public Command(ComName commandName, String[] commandArguments) {
+  public Command(CommandName commandName, String[] commandArguments) {
     this.commandName = commandName;
     this.commandArguments = commandArguments;
     this.commandFileInfo = null;

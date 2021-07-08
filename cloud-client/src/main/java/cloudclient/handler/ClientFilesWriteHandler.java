@@ -4,7 +4,7 @@ import cloudclient.service.CallBackService;
 import cloudclient.network.pipelineclip.InitializedPipeline;
 import cloudclient.network.pipelineclip.CommandPipeline;
 import domain.commands.Command;
-import domain.commands.ComName;
+import domain.commands.CommandName;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.channel.socket.SocketChannel;
@@ -46,7 +46,7 @@ public class ClientFilesWriteHandler extends ChannelInboundHandlerAdapter {
     long size2 = Files.size(Paths.get(arg));
 
     onCommandReceivedCallback.callBack(new Command(
-        ComName.BEGIN_FILE_SAVE,
+        CommandName.BEGIN_FILE_SAVE,
         new String[]{String.valueOf(size1), String.valueOf(size2)}));
     /**Очищаем буфер*/
     byteBuf.release();
@@ -59,14 +59,13 @@ public class ClientFilesWriteHandler extends ChannelInboundHandlerAdapter {
      прогрессбар*/
     if (size1 == size2) {
       System.out.println("Файл записан на клтент!");
-//      byteBuf.release();
       /**Возвращаем набор обработчиков для обработки команд */
       pipeline = commandPipeline.reloadClip(channel, command, onCommandReceivedCallback);
       /**Отправляем подтверждение серверу */
-      channel.writeAndFlush(new Command(ComName.CLIENT_FILE_ACCEPTED));
+      channel.writeAndFlush(new Command(CommandName.CLIENT_FILE_ACCEPTED));
 
       /**Останавливаем прогрессбар*/
-      onCommandReceivedCallback.callBack(new Command(ComName.SERVER_FILE_ACCEPTED));
+      onCommandReceivedCallback.callBack(new Command(CommandName.SERVER_FILE_ACCEPTED));
 /** Обновляем таблицу файлов клиента*/
       onCommandReceivedCallback.callBack("UPDATE_FILE_TABLE");
     }

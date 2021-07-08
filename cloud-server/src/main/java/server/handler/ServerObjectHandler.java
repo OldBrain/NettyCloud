@@ -1,7 +1,7 @@
 package server.handler;
 
 import domain.commands.Command;
-import domain.commands.ComName;
+import domain.commands.CommandName;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelPipeline;
@@ -33,7 +33,7 @@ public class ServerObjectHandler extends ChannelInboundHandlerAdapter {
   public void channelActive(ChannelHandlerContext ctx) throws Exception {
     super.channelActive(ctx);
 
-    if (ctx.writeAndFlush(new Command(ComName.CONNECT_OK, null, null)).isDone()) {
+    if (ctx.writeAndFlush(new Command(CommandName.CONNECT_OK, null, null)).isDone()) {
       System.out.println("Клиент подключен!");
     }
 

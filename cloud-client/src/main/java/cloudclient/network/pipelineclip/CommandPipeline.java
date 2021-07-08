@@ -12,27 +12,27 @@ import io.netty.handler.codec.serialization.ObjectEncoder;
 public class CommandPipeline implements InitializedPipeline {
   @Override
   public ChannelPipeline reloadClip(SocketChannel channel, Command command, CallBackService onCommandReceivedCallback) {
-    ChannelPipeline p = channel.pipeline();
+    ChannelPipeline pipeline = channel.pipeline();
     //* Удаляем хэндлеры для передачи файлов
-    if (p.get("chunked")!=null) {
-       p.remove("chunked");
+    if (pipeline.get("chunked") != null) {
+      pipeline.remove("chunked");
     }
-    if (p.get("file_handler")!=null) {
-      p.remove("file_handler");
+    if (pipeline.get("file_handler") != null) {
+      pipeline.remove("file_handler");
     }
 
-    if (p.get("decoder")==null) {
-    p.addLast("decoder",new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
+    if (pipeline.get("decoder") == null) {
+      pipeline.addLast("decoder", new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
     }
 //
-    if (p.get("encoder")==null) {
-      p.addLast("encoder",new  ObjectEncoder());
+    if (pipeline.get("encoder") == null) {
+      pipeline.addLast("encoder", new ObjectEncoder());
     }
-    if (p.get("command_handler")==null) {
-      p.addLast("command_handler",new ClientObjectHandler(onCommandReceivedCallback,channel));
+    if (pipeline.get("command_handler") == null) {
+      pipeline.addLast("command_handler", new ClientObjectHandler(onCommandReceivedCallback, channel));
     }
 
-    return p;
+    return pipeline;
   }
 
 

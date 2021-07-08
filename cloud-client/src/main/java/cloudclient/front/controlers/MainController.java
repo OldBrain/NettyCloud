@@ -2,13 +2,12 @@ package cloudclient.front.controlers;
 
 import cloudclient.front.InitAllTable;
 import cloudclient.front.action.MouseAction;
-import cloudclient.front.controlers.AuthorizationController;
 import cloudclient.informationaboutfiles.ClientsFiles;
 import cloudclient.informationaboutfiles.ServerFiles;
 import cloudclient.service.impl.ClientNetworkServiceImp;
 import cloudclient.util.ClientPropertiesUtils;
 import domain.commands.Command;
-import domain.commands.ComName;
+import domain.commands.CommandName;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -114,7 +113,7 @@ public class MainController implements Initializable {
     getFromServer.setDisable(true);
     progressBarShow();
     try {
-      clientNetworkServiceImp.sendCommandToServer(new Command(ComName.TAKE_FILE_FROM_SERVER,
+      clientNetworkServiceImp.sendCommandToServer(new Command(CommandName.TAKE_FILE_FROM_SERVER,
           new String[]{info.getText(), String.valueOf(Files.size(Paths.get(info.getText()))), ""},
           null));
     } catch (Exception ioException) {
@@ -132,7 +131,7 @@ public class MainController implements Initializable {
   }
 
   private void requestFileTreeFromServer() {
-    clientNetworkServiceImp.sendCommandToServer(new Command(ComName.GIVE_TREE, null, null));
+    clientNetworkServiceImp.sendCommandToServer(new Command(CommandName.GIVE_TREE, null, null));
   }
 
   @FXML
@@ -194,7 +193,7 @@ public class MainController implements Initializable {
   public void getFilesFromServer(ActionEvent actionEvent) {
     if (!info.getText().isEmpty()) {
       clientNetworkServiceImp.sendCommandToServer(new Command(
-          ComName.GIVE_MI_FILE,
+          CommandName.GIVE_MI_FILE,
           new String[]{info.getText(), mouseAction.getSize()},
           null));
     }
@@ -203,7 +202,7 @@ public class MainController implements Initializable {
   public void runCommandInInterface(Object obj) {
     if (obj instanceof Command) {
       Command command = (Command) obj;
-      if (command.commandName == ComName.BEGIN_FILE_SAVE) {
+      if (command.commandName == CommandName.BEGIN_FILE_SAVE) {
         progress.setVisible(true);
         progressPanel.setVisible(true);
         progressPanel.setDisable(true);
@@ -211,18 +210,18 @@ public class MainController implements Initializable {
         waitProgress.setVisible(true);
       }
 
-      if (command.commandName == ComName.SERVER_FILE_ACCEPTED) {
+      if (command.commandName == CommandName.SERVER_FILE_ACCEPTED) {
         progressBarHide();
       }
 
-      if (command.commandName == ComName.TAKE_TREE) {
+      if (command.commandName == CommandName.TAKE_TREE) {
         initServerTableView(command);
       }
-      if (command.commandName == ComName.CONNECT_OK) {
-        clientNetworkServiceImp.sendCommandToServer(new Command(ComName.LOGIN,
+      if (command.commandName == CommandName.CONNECT_OK) {
+        clientNetworkServiceImp.sendCommandToServer(new Command(CommandName.LOGIN,
             new String[]{login, password}));
       }
-      if (command.commandName == ComName.LOGIN_OK) {
+      if (command.commandName == CommandName.LOGIN_OK) {
         requestFileTreeFromServer();
       }
     }
@@ -245,7 +244,7 @@ public class MainController implements Initializable {
   }
 
   public void removeFileFromServer(ActionEvent actionEvent) {
-    clientNetworkServiceImp.sendCommandToServer(new Command(ComName.DELETE_FILE,
+    clientNetworkServiceImp.sendCommandToServer(new Command(CommandName.DELETE_FILE,
         new String[]{info.getText(), mouseAction.getSize()}
     ));
   }
