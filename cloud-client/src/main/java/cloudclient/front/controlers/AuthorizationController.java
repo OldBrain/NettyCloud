@@ -69,8 +69,6 @@ public class AuthorizationController implements Initializable {
       mainController = fxmlLoader.getController();
       mainController.setController(this);
       ((MainController) fxmlLoader.getController()).setController(this);
-//      mainStage.initModality(Modality.APPLICATION_MODAL);
-//      mainStage.initStyle(StageStyle.UTILITY);
     } catch (IOException ioException) {
       ioException.printStackTrace();
     }

@@ -11,40 +11,32 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 
 public class PipelineForInFiles implements InitializedPipeline {
 
-//  String dataDir = "clientdata";
-//  String dataDir = Controller.dirPath;
-
-//String getDataDir=
-
   @Override
   public ChannelPipeline reloadClip(SocketChannel channel, Command command, CallBackService onCommandReceivedCallback) {
-    ChannelPipeline p = channel.pipeline();
-
-
-    System.out.println("Перед сменой для файлов "+p.names());
+    ChannelPipeline pipeline = channel.pipeline();
     //* Удаляем хэндлеры для обработки команд
-    if (p.get("decoder")!=null) {
-      p.remove("decoder");
+    if (pipeline.get("decoder") != null) {
+      pipeline.remove("decoder");
     }
-    if (p.get("encoder")!=null) {
-      p.remove("encoder");
+    if (pipeline.get("encoder") != null) {
+      pipeline.remove("encoder");
     }
-    if (p.get("command_handler")!=null) {
-      p.remove("command_handler");
+    if (pipeline.get("command_handler") != null) {
+      pipeline.remove("command_handler");
     }
 
     /**
      * Добавляем обработчики для передачи файлов
      */
 
-    if (p.get("chunked")==null) {
-      p.addLast("chunked",new ChunkedWriteHandler());
+    if (pipeline.get("chunked") == null) {
+      pipeline.addLast("chunked", new ChunkedWriteHandler());
     }
-    if (p.get("file_handler")==null) {
-      p.addLast("file_handler",new ClientFilesWriteHandler(MainController.dirPath+command.commandArguments[0],channel,command,onCommandReceivedCallback));
+    if (pipeline.get("file_handler") == null) {
+      pipeline.addLast("file_handler", new ClientFilesWriteHandler(MainController.dirPath + command.commandArguments[0], channel, command, onCommandReceivedCallback));
 
     }
 
-    return p;
+    return pipeline;
   }
 }

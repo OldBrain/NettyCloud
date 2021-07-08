@@ -1,6 +1,6 @@
 package server.executingcommands;
 
-import domain.commands.ComName;
+import domain.commands.CommandName;
 import domain.commands.Command;
 import server.FileList;
 import io.netty.channel.ChannelFuture;
@@ -23,17 +23,17 @@ public class SendCommandsToClient {
 
   public void getTree(SocketChannel channel) {
     FileList fileList = new FileList(StartServer.MAIN_DIR);
-    channel.writeAndFlush(new Command(ComName.TAKE_TREE, null, fileList.getFileInfo()));
+    channel.writeAndFlush(new Command(CommandName.TAKE_TREE, null, fileList.getFileInfo()));
   }
 
   public void serverFileAccepted(SocketChannel channel) {
-    channel.writeAndFlush(new Command(ComName.SERVER_FILE_ACCEPTED ));
+    channel.writeAndFlush(new Command(CommandName.SERVER_FILE_ACCEPTED ));
   }
 
   public void sendFileToClient(Command command, SocketChannel channel) {
    /**Меняем командк на TAKE_FILE аргументы прежние
     * */
-    command.commandName = ComName.TAKE_FILE_FROM_SERVER;
+    command.commandName = CommandName.TAKE_FILE_FROM_SERVER;
       String fullPath = command.commandArguments[0];
     System.out.println("Имя команды "+command.commandName);
    System.out.println("Дай файл "+command.commandArguments[0]);
@@ -78,17 +78,17 @@ public class SendCommandsToClient {
     File file = new File(command.commandArguments[0]);
     if (file.delete()) {
       /**Отправляем подтверждение клиенту*/
-      channel.writeAndFlush(new Command(ComName.SERVER_FILE_DELETE_OK,
+      channel.writeAndFlush(new Command(CommandName.SERVER_FILE_DELETE_OK,
           command.commandArguments));
       /**Отправляем список файлов клиенту*/
       getTree(channel);
     } else {
-      channel.writeAndFlush(new Command(ComName.SERVER_FILE_DELETE_NO,
+      channel.writeAndFlush(new Command(CommandName.SERVER_FILE_DELETE_NO,
           command.commandArguments));
     }
   }
 
   public void loginOK(SocketChannel channel) {
-    channel.writeAndFlush(new Command(ComName.LOGIN_OK));
+    channel.writeAndFlush(new Command(CommandName.LOGIN_OK));
   }
 }
