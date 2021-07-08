@@ -34,9 +34,7 @@ public class PipelineForInFiles implements InitializedPipeline {
     }
     if (pipeline.get("file_handler") == null) {
       pipeline.addLast("file_handler", new ClientFilesWriteHandler(MainController.dirPath + command.commandArguments[0], channel, command, onCommandReceivedCallback));
-
     }
-
     return pipeline;
   }
 }

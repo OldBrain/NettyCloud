@@ -48,7 +48,6 @@ public class MainController implements Initializable {
   private String MAIN_DIR;
 
   public MainController() {
-
   }
 
   public void setController(AuthorizationController controller) {
@@ -61,6 +60,7 @@ public class MainController implements Initializable {
     clientNetworkServiceImp = new ClientNetworkServiceImp((obj) -> {
       runCommandInInterface(obj);
     });
+
     MAIN_DIR = propertiesUtils.value("MAIN_DIR");
     CreatingTablesMainWindow();
     setPropertiesWindowElements();
@@ -113,6 +113,7 @@ public class MainController implements Initializable {
     getFromServer.setDisable(true);
     progressBarShow();
     try {
+
       clientNetworkServiceImp.sendCommandToServer(new Command(CommandName.TAKE_FILE_FROM_SERVER,
           new String[]{info.getText(), String.valueOf(Files.size(Paths.get(info.getText()))), ""},
           null));

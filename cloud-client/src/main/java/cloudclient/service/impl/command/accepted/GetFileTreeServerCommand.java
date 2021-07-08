@@ -1,4 +1,4 @@
-package cloudclient.service.impl.command;
+package cloudclient.service.impl.command.accepted;
 
 import cloudclient.service.CallBackService;
 import cloudclient.service.CommandService;
@@ -6,8 +6,11 @@ import domain.commands.CommandName;
 import domain.commands.Command;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
-/**Команда получения списка файлов
- * с сервера и отображения их в MainController*/
+
+/**
+ * Команда получения списка файлов
+ * с сервера и отображения их в MainController
+ */
 
 public class GetFileTreeServerCommand implements CommandService {
 
