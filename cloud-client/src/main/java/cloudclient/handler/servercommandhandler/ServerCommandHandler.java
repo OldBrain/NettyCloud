@@ -1,20 +1,15 @@
 package cloudclient.handler.servercommandhandler;
 
 import cloudclient.factory.Factory;
-import cloudclient.front.controlers.MainController;
 import cloudclient.network.pipelineclip.CommandPipeline;
 import cloudclient.network.pipelineclip.InitializedPipeline;
 import cloudclient.network.pipelineclip.PipelineForInFiles;
 import cloudclient.service.CallBackService;
 import cloudclient.service.CommandDictionaryService;
-import cloudclient.service.impl.command.GetFileTreeServerCommand;
-import cloudclient.service.impl.command.ServerAcceptedFileCommand;
-import domain.commands.CommandName;
 import domain.commands.Command;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 
-import java.io.File;
 import java.util.Arrays;
 
 public class ServerCommandHandler {

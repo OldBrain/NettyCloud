@@ -13,7 +13,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.stream.ChunkedFile;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -39,18 +38,16 @@ public class ClientNetworkServiceImp {
 
                 protected void initChannel(SocketChannel socketChannel) throws Exception {
                   channel = socketChannel;
-                  ChannelPipeline p = channel.pipeline();
-                  p = commandPipeline.reloadClip(channel, null, onCommandReceivedCallback);
+                  ChannelPipeline pipeline = channel.pipeline();
+                  pipeline = commandPipeline.reloadClip(channel, null, onCommandReceivedCallback);
 
                 }
               });
           int port = Integer.parseInt(prop.value("PORT"));
           String host = prop.value("HOST");
-
           ChannelFuture future = b.connect(host, port).sync();
           future.channel().closeFuture().sync();
         } catch (Exception e) {
-//    e.printStackTrace();
           System.out.println("Ошибка подключения к серверу");
         } finally {
           workerGroup.shutdownGracefully();
@@ -67,20 +64,16 @@ public class ClientNetworkServiceImp {
       String fullPath = command.commandArguments[0];
       /**Размер передаваемого файла*/
       String size = command.commandArguments[1];
-
-
       /**Выделяем имя файла из строки commandArguments*/
       String[] f = command.commandArguments[0].split("\\\\");
       command.commandArguments[0] = f[f.length - 1];
       command.commandArguments[1] = size;
-
 /** Устанавливаем набор обработчиков для приема команд*/
       pipeline = commandPipeline.reloadClip(channel, command, onCommandReceivedCallback);
 /**Отправляем соманду на сервер*/
       channel.writeAndFlush(command);
 /** Устанавливаем набор обработчиков для передачи файлов*/
       pipeline = outFilesPipeline.reloadClip(channel, command, onCommandReceivedCallback);
-
 /** Отправляем файл на сервер*/
       ChannelFuture future = null;
       File file = new File(fullPath);
@@ -95,7 +88,6 @@ public class ClientNetworkServiceImp {
       });
 /** Устанавливаем набор обработчиков для приема команд*/
       pipeline = commandPipeline.reloadClip(channel, command, onCommandReceivedCallback);
-
     }
 
     if (command.commandName == CommandName.GIVE_MI_FILE
@@ -114,6 +106,4 @@ public class ClientNetworkServiceImp {
       channel.writeAndFlush(command);
     }
   }
-
-
 }

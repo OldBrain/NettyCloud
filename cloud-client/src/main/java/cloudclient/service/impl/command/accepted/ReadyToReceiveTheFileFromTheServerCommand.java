@@ -1,4 +1,4 @@
-package cloudclient.service.impl.command;
+package cloudclient.service.impl.command.accepted;
 
 import cloudclient.front.controlers.MainController;
 import cloudclient.network.pipelineclip.InitializedPipeline;
@@ -11,7 +11,10 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 
 import java.io.File;
-/**Команад подготовки клиента к получению файла с сервера*/
+
+/**
+ * Команад подготовки клиента к получению файла с сервера
+ */
 public class ReadyToReceiveTheFileFromTheServerCommand implements CommandService {
 
   private InitializedPipeline inFilesPipeline = new PipelineForInFiles();
