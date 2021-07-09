@@ -5,7 +5,7 @@ import domain.commands.Command;
 import domain.commands.CommandName;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
-import server.FileList;
+import server.informationaboutfiles.FileList;
 import server.StartServer;
 import server.service.ServerCommandService;
 
