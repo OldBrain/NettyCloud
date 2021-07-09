@@ -1,4 +1,4 @@
-package cloudclient.service.impl.command.accepted;
+package cloudclient.service.impl.command;
 
 import cloudclient.front.controlers.MainController;
 import cloudclient.network.pipelineclip.InitializedPipeline;

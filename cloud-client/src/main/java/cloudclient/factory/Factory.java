@@ -4,10 +4,10 @@ import cloudclient.service.CallBackService;
 import cloudclient.service.CommandDictionaryService;
 import cloudclient.service.CommandService;
 import cloudclient.service.impl.CommandDictionaryServiceImpl;
-import cloudclient.service.impl.command.accepted.LoginOkCommand;
-import cloudclient.service.impl.command.accepted.ReadyToReceiveTheFileFromTheServerCommand;
-import cloudclient.service.impl.command.accepted.GetFileTreeServerCommand;
-import cloudclient.service.impl.command.accepted.ServerAcceptedFileCommand;
+import cloudclient.service.impl.command.LoginOkCommand;
+import cloudclient.service.impl.command.ReadyToReceiveTheFileFromTheServerCommand;
+import cloudclient.service.impl.command.GetFileTreeServerCommand;
+import cloudclient.service.impl.command.ServerAcceptedFileCommand;
 import io.netty.channel.socket.SocketChannel;
 
 import java.util.ArrayList;
