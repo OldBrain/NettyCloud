@@ -9,7 +9,7 @@
 <HBox focusTraversable="true" prefWidth="Infinity" prefHeight="Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cloudclient.front.controlers.AuthorizationController">
 
    <ImageView disable="true" HBox.hgrow="ALWAYS"  pickOnBounds="true">
-      <Image fx:id="img"   url="@../cloud.png" />
+      <Image fx:id="img"   url="@../picture/cloud.png" />
    </ImageView>
 
    <VBox spacing="5">

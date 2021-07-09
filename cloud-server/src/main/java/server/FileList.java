@@ -8,10 +8,9 @@ import java.util.List;
 
 public class FileList implements Serializable {
 
-  List<String[]> fileList = new LinkedList<String[]>();
+  private List<String[]> fileList = new LinkedList<String[]>();
 
   public FileList(String path) {
-
     File dir = new File(path);
     File[] fileArr = dir.listFiles();
     for (int i = 0; i < fileArr.length; i++) {
@@ -29,7 +28,6 @@ public class FileList implements Serializable {
     String data = sdf.format(file.lastModified());
     return data;
   }
-
 
   public List<String[]> getFileInfo() {
     return fileList;

@@ -6,26 +6,28 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
-import server.executingcommands.SendCommandsToClient;
+import server.factory.Factory;
 import server.network.pipelineclip.InitPipeline;
 import server.network.pipelineclip.CommandPipeline;
 import server.network.pipelineclip.PipelineForInFiles;
-import server.util.SrvPropertiesUtils;
-
-import java.io.File;
+import server.service.ServerCommandDictionaryService;
 import java.util.Arrays;
 
 
 public class ServerObjectHandler extends ChannelInboundHandlerAdapter {
-  Command command;
 
-  private SendCommandsToClient sendToClient = new SendCommandsToClient();
   private SocketChannel channel;
-  private InitPipeline FilesPipeline = new PipelineForInFiles();
+  private InitPipeline filesPipeline = new PipelineForInFiles();
   private InitPipeline commandPipeline = new CommandPipeline();
+  private ServerCommandDictionaryService dictionaryService;
+  private Factory factory;
+  ChannelPipeline pipeline;
 
   public ServerObjectHandler(SocketChannel channel) {
     this.channel = channel;
+    factory = new Factory(channel);
+    this.dictionaryService = factory.getCommandDictionaryService();
+
   }
 
 
@@ -42,54 +44,15 @@ public class ServerObjectHandler extends ChannelInboundHandlerAdapter {
   @Override
   public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
     super.channelRead(ctx, msg);
-    SrvPropertiesUtils prop = new SrvPropertiesUtils();
-
-    ChannelPipeline p = ctx.pipeline();
+//    SrvPropertiesUtils prop = new SrvPropertiesUtils();
+    pipeline = ctx.pipeline();
     Command command = (Command) msg;
-    switch (command.commandName) {
-      case GIVE_TREE:
-        printCommand(command);
-        sendToClient.getTree(channel);
-        break;
-
-      case TAKE_FILE_FROM_SERVER:
-        printCommand(command);
-        /**Если файл существует то будет перезаписан*/
-        String fileP = prop.value("MAIN_DIR") + "\\" + command.commandArguments[0];
-        File file = new File(fileP);
-        if (file.delete()) {
-          System.out.println("Файл будет перезаписан на сервере");
-        }
-        p = FilesPipeline.reloadClip(channel, command);
-        break;
-
-      case GIVE_MI_FILE:
-        printCommand(command);
-        sendToClient.sendFileToClient(command, channel);
-        break;
-
-      case CLIENT_FILE_ACCEPTED:
-        printCommand(command);
-
-        break;
-      case DELETE_FILE:
-        printCommand(command);
-        sendToClient.deleteFile(command,channel);
-        break;
-      case LOGIN:
-        sendToClient.loginOK(channel);
-        printCommand(command);
-        break;
-
-        default:
-        break;
-    }
-
-
+    dictionaryService.processCommand(command,pipeline);
+    printCommand(command);
   }
 
 
-    private void printCommand(Command command) {
+  private void printCommand(Command command) {
       if (command.commandArguments == null) {
         System.out.println("Получена команда с сервера: "
             + command.commandName);

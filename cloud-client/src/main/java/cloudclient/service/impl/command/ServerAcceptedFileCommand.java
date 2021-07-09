@@ -1,4 +1,4 @@
-package cloudclient.service.impl.command.accepted;
+package cloudclient.service.impl.command;
 
 import cloudclient.service.CallBackService;
 import cloudclient.service.CommandService;
